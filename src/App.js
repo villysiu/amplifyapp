@@ -1,15 +1,23 @@
+import logo from "./logo.svg";
+import "@aws-amplify/ui-react/styles.css";
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { API, Storage } from 'aws-amplify';
 // import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator,
+  Button,
+  Heading,
+  Image,
+  View,
+  Card,
+ } from '@aws-amplify/ui-react';
 import { listNotes } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
 
 
 const initialFormState = { name: '', description: '' }
 
-function App() {
+function App({ signOut }) {
   const [notes, setNotes] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
 
@@ -56,7 +64,14 @@ async function createNote() {
   }
 
   return (
-    <div className="App">
+
+    <div className="App"> 
+    <Card>
+        <Image src={logo} className="App-logo" alt="logo" />
+        <Heading level={1}>We now have Auth!</Heading>
+      </Card>
+      <Button onClick={signOut}>Sign Out</Button>
+    
       <h1>My Notes App</h1>
       <input
         onChange={e => setFormData({ ...formData, 'name': e.target.value})}
